@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<pre>
+    <!--hello-->
+    <!--&lt;!&ndash;$!{value1}&ndash;&gt;-->
+    $!{value1}
+
+    <!--colors: $!{colors}  ## List-->
+
+
+
+    <!--#foreach($key in $map.keySet())-->
+        <!--Number: $key, Value: $map.get($key)-->
+    <!--#end-->
+
+
+    <!--User: $!{user.name}-->
+
+    <!--#set($title = "question and answer")-->
+    <!--Title: $!{title}-->
+
+    <!--#include("headerMyVersion.html")-->
+    <!--#parse("headerMyVersion.html")-->
+
+    <!--#macro(render_color, $index, $color)-->
+        <!--Color Render Macro $index, $color-->
+    <!--#end-->
+
+    <!--#foreach($color in $colors)-->
+        <!--#render_color($foreach.index, $color)-->
+    <!--#end-->
+</pre>
+</body>
+</html>
