@@ -1,9 +1,7 @@
 package com.ngcafai.QandA.dao;
 
 import com.ngcafai.QandA.model.Question;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.*;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
@@ -22,4 +20,9 @@ public interface QuestionDAO {
                                          @Param("offset") int offset,
                                          @Param("limit") int limit);
 
+    @Select({"select ", SELECT_FIELDS, "from", TABLE_NAME, "where id = #{id}"})
+    Question selectById(int id);
+
+    @Update({"update ", TABLE_NAME, " set comment_count = #{commentCount} where id=#{id}"})
+    int updateCommentCount(@Param("id") int id, @Param("commentCount") int commentCount);
 }

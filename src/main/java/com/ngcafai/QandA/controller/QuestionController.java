@@ -1,20 +1,21 @@
 package com.ngcafai.QandA.controller;
 
 import com.ngcafai.QandA.Util.QandAUtil;
-import com.ngcafai.QandA.model.HostHolder;
-import com.ngcafai.QandA.model.Question;
+import com.ngcafai.QandA.model.*;
+import com.ngcafai.QandA.service.CommentService;
 import com.ngcafai.QandA.service.QuestionService;
+import com.ngcafai.QandA.service.UserService;
 import org.apache.catalina.Host;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Controller
 public class QuestionController {
@@ -22,6 +23,12 @@ public class QuestionController {
 
     @Autowired
     QuestionService questionService;
+
+    @Autowired
+    CommentService commentService;
+
+    @Autowired
+    UserService userService;
 
     @Autowired
     HostHolder hostHolder;
@@ -50,6 +57,25 @@ public class QuestionController {
         return QandAUtil.getJSONString(0, "失败");
     }
 
+    @RequestMapping(path = "/question/{id}", method = RequestMethod.GET)
+    public String questionDetail(Model model, @PathVariable("id") int id) {
+        Question question = questionService.selectById(id);
+        model.addAttribute("question", question);
+        model.addAttribute("user", userService.getUser(question.getUserId()));
+
+        List<Comment> commentList = commentService.getCommentsByEntity(id, EntityType.ENTITY_QUESTION);
+        List<ViewObject> comments = new ArrayList<>();
+        for (Comment comment : commentList) {
+            ViewObject viewObject = new ViewObject();
+            viewObject.set("comment", comment);
+            viewObject.set("user", userService.getUser(comment.getUserId()));
+            comments.add(viewObject);
+        }
+        model.addAttribute("comments", comments);
+
+        return "detail";
+
+    }
 
 
 }

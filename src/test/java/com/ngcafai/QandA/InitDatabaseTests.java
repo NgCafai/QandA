@@ -17,7 +17,7 @@ import java.util.Random;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = QandAApplication.class)
-@Sql("/init-schema.sql")
+//@Sql("/init-schema.sql")
 public class InitDatabaseTests {
 	@Autowired
 	UserDAO userDAO;
@@ -25,6 +25,7 @@ public class InitDatabaseTests {
 	@Autowired
 	QuestionDAO questionDAO;
 
+	/*
 	@Test
 	public void contextLoads() {
 		Random random = new Random();
@@ -55,6 +56,8 @@ public class InitDatabaseTests {
 		Assert.assertNull(userDAO.selectById(1));
 		System.out.println(questionDAO.selectLatestQuestions(0, 0, 5));
 	}
+    */
+
 
 }
 
