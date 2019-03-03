@@ -54,7 +54,7 @@ public class QuestionController {
         } catch (Exception e) {
             logger.error("增加题目失败  " + e.getMessage());
         }
-        return QandAUtil.getJSONString(0, "失败");
+        return QandAUtil.getJSONString(1, "失败");
     }
 
     @RequestMapping(path = "/question/{id}", method = RequestMethod.GET)

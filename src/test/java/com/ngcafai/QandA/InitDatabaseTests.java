@@ -2,8 +2,10 @@ package com.ngcafai.QandA;
 
 import com.ngcafai.QandA.dao.QuestionDAO;
 import com.ngcafai.QandA.dao.UserDAO;
+import com.ngcafai.QandA.model.Message;
 import com.ngcafai.QandA.model.Question;
 import com.ngcafai.QandA.model.User;
+import com.ngcafai.QandA.service.MessageService;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -24,6 +26,19 @@ public class InitDatabaseTests {
 
 	@Autowired
 	QuestionDAO questionDAO;
+
+	@Autowired
+	MessageService messageService;
+
+	@Test
+	public void messageTest() {
+		Message msg = new Message();
+
+		msg.setCreatedDate(new Date());
+		//msg.setConversationId(fromId < toId ? String.format("%d_%d", fromId, toId) : String.format("%d_%d", toId, fromId));
+
+		Assert.assertEquals(1, messageService.addMessage(msg));
+	}
 
 	/*
 	@Test

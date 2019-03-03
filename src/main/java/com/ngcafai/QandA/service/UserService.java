@@ -122,4 +122,8 @@ public class UserService {
         loginTicketDAO.addTicket(loginTicket);
         return loginTicket.getTicket();
     }
+
+    public User getUserByName(String name) {
+        return userDAO.selectByName(name);
+    }
 }
