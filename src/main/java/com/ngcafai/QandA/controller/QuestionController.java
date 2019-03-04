@@ -3,6 +3,7 @@ package com.ngcafai.QandA.controller;
 import com.ngcafai.QandA.Util.QandAUtil;
 import com.ngcafai.QandA.model.*;
 import com.ngcafai.QandA.service.CommentService;
+import com.ngcafai.QandA.service.LikeService;
 import com.ngcafai.QandA.service.QuestionService;
 import com.ngcafai.QandA.service.UserService;
 import org.apache.catalina.Host;
@@ -32,6 +33,9 @@ public class QuestionController {
 
     @Autowired
     HostHolder hostHolder;
+
+    @Autowired
+    LikeService likeService;
 
     @RequestMapping(path = {"/question/add"}, method = RequestMethod.POST)
     @ResponseBody
@@ -64,15 +68,25 @@ public class QuestionController {
         model.addAttribute("user", userService.getUser(question.getUserId()));
 
         List<Comment> commentList = commentService.getCommentsByEntity(id, EntityType.ENTITY_QUESTION);
-        List<ViewObject> comments = new ArrayList<>();
+        List<ViewObject> viewObjects = new ArrayList<>();
         for (Comment comment : commentList) {
             ViewObject viewObject = new ViewObject();
             viewObject.set("comment", comment);
             viewObject.set("user", userService.getUser(comment.getUserId()));
-            comments.add(viewObject);
-        }
-        model.addAttribute("comments", comments);
 
+            // set like or dislike status
+            if (hostHolder.getUser() == null) {
+                viewObject.set("liked", 0);
+            } else {
+                viewObject.set("liked", likeService.getLikeStatus(hostHolder.getUser().getId(), EntityType.ENTITY_COMMENT, comment.getId()));
+            }
+
+            viewObject.set("likeCount", likeService.getLikeCount(EntityType.ENTITY_COMMENT, comment.getId()));
+
+            viewObjects.add(viewObject);
+        }
+
+        model.addAttribute("comments", viewObjects);
         return "detail";
 
     }

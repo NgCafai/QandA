@@ -9,6 +9,10 @@ import org.springframework.stereotype.Component;
 public class HostHolder {
     private static ThreadLocal<User> users = new ThreadLocal<>();
 
+    /**
+     *
+     * @return null if there is no user bound to the current thread
+     */
     public User getUser() {
         return users.get();
     }

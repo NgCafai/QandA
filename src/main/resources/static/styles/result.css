@@ -7943,15 +7943,16 @@ a>.invisible {
     position:static!important
 }
 }.zu-top-link-logo {
-    float:left;
-    width:61px;
-    height:100%;
-    background-image:url(../images/res/nk.png);
-    background-repeat:no-repeat;
-    background-position:center;
-    text-indent:-9999px;
-    color:#fff
-}
+     float: left;
+     width: 45px;
+     height: 45px;
+     background-image: url(../images/res/monkey.jpg);
+     background-size: auto 100%;
+     background-repeat: no-repeat;
+     background-position: center;
+     text-indent: -9999px;
+     color: #fff
+ }
 .zu-top-link-logo:active {
     opacity:.8;
     -ms-filter:"alpha(Opacity=80)"

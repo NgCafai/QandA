@@ -2520,10 +2520,13 @@ html.no-touchevents .sign-flow .weibo-signup-wrapper a:hover {
 
 .index-header .logo {
     margin: 0 auto;
-    width: 46px;
-    height: 46px;
-    background: url(../imagse/log.png) no-repeat;
-    background-size: contain
+    width: 68px;
+    height: 68px;
+    background-image: url(../images/res/monkey.jpg);
+    background-size: auto 100%;
+    background-repeat: no-repeat;
+    background-position: center;
+    color: #fff
 }
 
 @media (max-width :740px) {
