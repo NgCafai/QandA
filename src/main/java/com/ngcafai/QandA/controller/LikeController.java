@@ -29,6 +29,8 @@ public class LikeController {
         if (hostHolder.getUser() == null) {
             return QandAUtil.getJSONString(999);
         }
+
+        // 当前用户对指定comment点赞
         long likeCount = likeService.like(hostHolder.getUser().getId(), EntityType.ENTITY_COMMENT, commentId);
         return QandAUtil.getJSONString(0, String.valueOf(likeCount));
     }

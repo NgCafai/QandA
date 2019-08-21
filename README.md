@@ -1,5 +1,5 @@
 # QandA
-A website for asking questions and getting answers
+A website for asking questions and getting answers. Version 0.0.1
 
 ## 1、网站介绍
 该网站实现了提问，评论，注册登录，未登录跳转，记住登录状态，私聊，过滤敏感词，点赞等功能。

@@ -11,6 +11,7 @@ public class QandAUtil {
 
     // default id for users who haven't login but want to post questions
     public static int ANONYMOUS_USERID = 1;
+    public static int SYSTEEM_USERID = 2;
 
     public static String getJSONString(int code) {
         JSONObject jsonObject = new JSONObject();

@@ -8,6 +8,8 @@ import org.springframework.stereotype.Service;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
 
+import java.util.List;
+
 /**
  * This class provides methods for interacting with the Redis server
  */
@@ -22,11 +24,10 @@ public class JedisAdapter implements InitializingBean {
     }
 
     /**
-     *
      * @param key
      * @param value
      * @return the number of elements that were added to the set, not including
-     *         all the elements already present into the set.
+     * all the elements already present into the set.
      */
     public long sadd(String key, String value) {
         Jedis jedis = null;
@@ -86,6 +87,41 @@ public class JedisAdapter implements InitializingBean {
             }
         }
         return false;
+    }
+
+    public List<String> brpop(int timeout, String key) {
+        Jedis jedis = null;
+        try {
+            jedis = jedisPool.getResource();
+            return jedis.brpop(timeout, key);
+        } catch (Exception e) {
+            logger.error("Error! " + e.getMessage());
+        } finally {
+            if (jedis != null) {
+                jedis.close();
+            }
+        }
+        return null;
+    }
+
+    /**
+     * @param key
+     * @param value
+     * @return the length of the list after the push operations.
+     */
+    public long lpush(String key, String value) {
+        Jedis jedis = null;
+        try {
+            jedis = jedisPool.getResource();
+            return jedis.lpush(key, value);
+        } catch (Exception e) {
+            logger.error("Error! " + e.getMessage());
+        } finally {
+            if (jedis != null) {
+                jedis.close();
+            }
+        }
+        return 0;
     }
 
 }
